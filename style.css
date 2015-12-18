@@ -1,0 +1,25 @@
+#say_container{
+  
+  /*display:none;*/
+  
+}
+
+#quick_container{
+  
+  display: none;
+  
+}
+
+.quick_canvas{
+
+    background: #00ffff;
+
+}
+
+#quick_input{
+
+    font-size: 10px;
+    width: 320px;
+    height: 240px;
+
+}
