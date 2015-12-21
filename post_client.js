@@ -12,6 +12,78 @@
 
 		return document.getElementById(id);
 
+	},
+
+	// hide all the children of a given element
+	hideAllChildren = function (el) {
+
+		var children = el.children,
+		i = 0,
+		len = children.length;
+		while (i < len) {
+
+			// hide
+			children[i].style.display = 'none';
+
+			i++;
+		}
+
+	},
+
+	// get the code span of a given quick canvas post container
+	quickCanvasGetCode = function (el) {
+
+		var children = el.children,
+		i = 0,
+		len = children.length;
+		while (i < len) {
+
+			if (children[i].className === 'quickpost_code') {
+
+				return children[i];
+
+			}
+
+			i++;
+		}
+
+	},
+
+	// inject the quick canvas player
+	injectQuickCanvasPlayer = function (el) {
+
+		hideAllChildren(el);
+
+		var frame = document.createElement('iframe'),
+		doc,
+		canvas = document.createElement('canvas'),
+		context = canvas.getContext('2d'),
+		script = document.createElement('script'),
+
+		codeEl = quickCanvasGetCode(el);
+
+		frame.width = 400;
+		frame.height = 300;
+		canvas.width = 320;
+		canvas.height = 240;
+
+		// ALERT! okay so we have a big problem with more then one id on the same canvas
+		// maybe we can just have one canvas that we move around?
+		canvas.id = 'quick_canvas';
+
+		script.innerHTML = codeEl.innerHTML;
+
+		el.appendChild(frame);
+
+		doc = frame.contentDocument;
+
+		// must be a better way to style
+		doc.body.style.margin = '0px';
+		doc.body.style.padding = '0px';
+
+		doc.body.appendChild(canvas);
+		doc.body.appendChild(script);
+
 	};
 
 	// run button
@@ -103,22 +175,17 @@
 	(function () {
 
 		// yes we will want to do this client side as well some time
-		var getPosts = function () {
-			
-		},
-		
-		wallUpdate = function(){
-			
-			
-		},
-		
+		var getPosts = function () {},
+
+		wallUpdate = function () {},
+
 		// dial home and check for new additions to the wall automaticly every so often
-		wallCheck = function(){
-			
+		wallCheck = function () {
+
 			setTimeout(wallCheck, 60000);
-			
+
 			console.log('preforming wall check...');
-			
+
 		},
 
 		// send a wall post
@@ -131,8 +198,8 @@
 
 				if (this.readyState === 4) {
 
-					get('query').innerHTML = this.response;
-					console.log(this.response);
+					//get('query').innerHTML = this.response;
+					console.log(JSON.parse(this.response));
 
 				}
 
@@ -144,7 +211,7 @@
 
 		// start wall check loop
 		wallCheck();
-		
+
 		// attach event for wall_post button
 		get('say_post').addEventListener('click', function () {
 
@@ -163,7 +230,9 @@
 				say : saying
 			});
 
-			sendPost({say:saying});
+			sendPost({
+				say : saying
+			});
 
 		});
 
@@ -173,15 +242,45 @@
 			var theQuick = document.getElementById('quick_input').value;
 
 			// no client side sanatation!?
-			
+
 
 			console.log({
-				say : theQuick
+				quick : theQuick
 			});
 
-			sendPost({quick:theQuick});
+			sendPost({
+				quick : theQuick
+			});
 
 		});
+
+		// attach events for all quickpost_icon's
+		(function () {
+
+			var icons = document.getElementsByClassName('quickpost_icon'),
+			i = 0,
+			len = icons.length;
+
+			// attach to all on page
+			while (i < len) {
+
+				icons[i].addEventListener('click', function (e) {
+
+					var _id = e.target.id.replace(/post_icon_/, ''),
+					container = get('post_container_' + _id);
+
+					// hide all the children in the post
+					//hideAllChildren(container);
+
+					injectQuickCanvasPlayer(container);
+
+				});
+
+				i++;
+			}
+
+		}
+			());
 
 	}
 		());

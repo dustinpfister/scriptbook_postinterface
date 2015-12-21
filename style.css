@@ -1,3 +1,20 @@
+body{
+
+    padding: 50px;
+
+
+}
+
+.content-container{
+
+   padding: 25px;
+
+}
+
+
+
+/* INDEX VIEW CLASSES */
+
 #say_container{
   
   /*display:none;*/
@@ -14,6 +31,24 @@
 
     background: #00ffff;
 
+}
+
+
+/* quick post*/
+.quickpost_code{
+
+    display:none;
+
+}
+.quickpost_container{
+
+    outline: 1px solid #00ff00;
+
+}
+.quickpost_icon{
+    width:64px;
+    height:64px;
+    outline: 1px solid #00ff00;
 }
 
 #quick_input{

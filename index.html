@@ -11,21 +11,23 @@
 
 <body>
 
-    <div id="wallpost">
-        <form>
-            <input name="post_type" id="wall_radio_say" value="say" type="radio" checked>Say
-            <input name="post_type" id="wall_radio_quick_canvas" value="quick" type="radio">Quick Canvas
-        </form>
-        <div id="say_container">
+        <div id="wall">
 
-            <label>Say:</label>
-            <input id="say_input" type="text" name="say">
-            <input id="say_post" type="submit" value="post">
+            <form>
+                <input name="post_type" id="wall_radio_say" value="say" type="radio" checked>Say
+                <input name="post_type" id="wall_radio_quick_canvas" value="quick" type="radio">Quick Canvas
+            </form>
+        
+		    <div id="say_container">
 
-        </div>
+                <label>Say:</label>
+                <input id="say_input" type="text" name="say">
+                <input id="say_post" type="submit" value="post">
 
-        <div id="quick_container">
-            <textarea id="quick_input">
+            </div>
+
+            <div id="quick_container">
+                <textarea id="quick_input">
 
 (function(){
 
@@ -100,18 +102,21 @@
 
 }());
 
-            </textarea>
-            <iframe id="quick_iframe" width="320" height="240"></iframe>
-            <br>
-            <input id="quick_run" type="button" value="run">
-            <input id="quick_kill" type="button" value="kill">
-            <input id="quick_post" type="submit" value="post">
+                </textarea>
+                <iframe id="quick_iframe" width="320" height="240"></iframe>
+                <br>
+                <input id="quick_run" type="button" value="run">
+                <input id="quick_kill" type="button" value="kill">
+                <input id="quick_post" type="submit" value="post">
+            </div>
+
+
+            <!-- <%- html_wall_content %> -->
         </div>
-		
-    </div>
+</div>
 
 	
-	<script src="post_client.js"></script>
+<script src="post_client.js"></script>
 </body>
 
 </html>
